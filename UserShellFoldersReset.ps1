@@ -74,7 +74,7 @@ foreach ($folder in $folders) {
 $User = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 $UserName = [System.IO.Path]::GetFileName($User)
 
-Copy-Item "$uncpath\Folder Redirection\$Username\Documents\*" "$env:USERPROFILE\Documents\" -Recurse -Force -Verbose
+Copy-Item "$uncpath\$Username\Documents\*" "$env:USERPROFILE\Documents\" -Recurse -Force -Verbose
 Get-ChildItem "$env:USERPROFILE\Documents" -Recurse | Where-Object { $_.Name -like "*$RECYCLE.BIN*" } | Remove-Item -Recurse -Force -Verbose
 Remove-Item "$env:USERPROFILE\Documents\Outlook Files" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 
