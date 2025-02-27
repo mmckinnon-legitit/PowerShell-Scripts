@@ -69,6 +69,8 @@ $folders = @(
 
 foreach ($folder in $folders) {
     New-Item -Path "$env:USERPROFILE\$Folder" -ItemType Directory -ErrorAction SilentlyContinue
+    New-Item -Path "$OneDrive\$Folder" -ItemType Directory -ErrorAction SilentlyContinue
+
 }
 
 
