@@ -6,6 +6,8 @@ param(
     [string]$uncpath
 )
 
+$OneDrive = (Get-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\OneDrive\Accounts\Business1").UserFolder
+
 # Remove specific registry keys
 $keysToRemove = @(
     "{F42EE2D3-909F-4907-8871-4C22FC0BF756}",
@@ -33,15 +35,15 @@ $valuesToSet = @{
     "AppData" = "%USERPROFILE%\AppData\Roaming"
     "Cache" = "%USERPROFILE%\AppData\Local\Microsoft\Windows\INetCache"
     "Cookies" = "%USERPROFILE%\AppData\Local\Microsoft\Windows\INetCookies"
-    "Desktop" = "%USERPROFILE%\Desktop"
+    "Desktop" = "$OneDrive\Desktop"
     "Favorites" = "%USERPROFILE%\Favorites"
     "History" = "%USERPROFILE%\AppData\Local\Microsoft\Windows\History"
     "Local AppData" = "%USERPROFILE%\AppData\Local"
     "My Music" = "%USERPROFILE%\Music"
-    "My Pictures" = "%USERPROFILE%\Pictures"
+    "My Pictures" = "$OneDrive\Pictures"
     "My Video" = "%USERPROFILE%\Videos"
     "NetHood" = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Network Shortcuts"
-    "Personal" = "%USERPROFILE%\Documents"
+    "Personal" = "$OneDrive\Documents"
     "PrintHood" ="%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Printer Shortcuts"
     "Programs" = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
     "Recent" = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Recent"
@@ -49,9 +51,9 @@ $valuesToSet = @{
     "Start Menu" = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu"
     "Startup" = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
     "Templates" = "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Templates"
-    "{F42EE2D3-909F-4907-8871-4C22FC0BF756}" = "%USERPROFILE%\Documents"
-    "{0DDD015D-B06C-45D5-8C4C-F59713854639}" = "%USERPROFILE%\Pictures"
-    "{754AC886-DF64-4CBA-86B5-F7FBF4FBCEF5}" = "%USERPROFILE%\Desktop"
+    "{F42EE2D3-909F-4907-8871-4C22FC0BF756}" = "$OneDrive\Documents"
+    "{0DDD015D-B06C-45D5-8C4C-F59713854639}" = "$OneDrive\Pictures"
+    "{754AC886-DF64-4CBA-86B5-F7FBF4FBCEF5}" = "$OneDrive\Desktop"
 }
 
 foreach ($name in $valuesToSet.Keys) {
@@ -90,13 +92,13 @@ If (Test-Path "$env:USERPROFILE\Documents\Music") {
 }
 
 If (Test-Path "$env:USERPROFILE\Documents\My Pictures") {
-    Get-ChildItem "$env:USERPROFILE\Documents\My Pictures" -Recurse | Move-Item -Destination "$env:USERPROFILE\Pictures" -Force -Verbose -ErrorAction SilentlyContinue
+    Get-ChildItem "$env:USERPROFILE\Documents\My Pictures" -Recurse | Move-Item -Destination "$OneDrive\Pictures" -Force -Verbose -ErrorAction SilentlyContinue
     Remove-Item "$env:USERPROFILE\Documents\My Pictures" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 
 }
 
 If (Test-Path "$env:USERPROFILE\Documents\Pictures") {
-    Get-ChildItem "$env:USERPROFILE\Documents\Pictures" -Recurse | Move-Item -Destination "$env:USERPROFILE\Pictures" -Force -Verbose -ErrorAction SilentlyContinue
+    Get-ChildItem "$env:USERPROFILE\Documents\Pictures" -Recurse | Move-Item -Destination "$OneDrive\Pictures" -Force -Verbose -ErrorAction SilentlyContinue
     Remove-Item "$env:USERPROFILE\Documents\Pictures" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 
 }
@@ -110,6 +112,24 @@ If (Test-Path "$env:USERPROFILE\Documents\My Videos") {
 If (Test-Path "$env:USERPROFILE\Documents\Videos") {
     Get-ChildItem "$env:USERPROFILE\Documents\Videos" -Recurse | Move-Item -Destination "$env:USERPROFILE\Videos" -Force -Verbose -ErrorAction SilentlyContinue
     Remove-Item "$env:USERPROFILE\Documents\Videos" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+
+}
+
+If (Test-Path "$env:USERPROFILE\Documents") {
+    Get-ChildItem "$env:USERPROFILE\Documents" -Recurse | Move-Item -Destination "$OneDrive\Documents" -Force -Verbose -ErrorAction SilentlyContinue
+    Remove-Item "$env:USERPROFILE\Documents" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+
+}
+
+If (Test-Path "$env:USERPROFILE\Pictures") {
+    Get-ChildItem "$env:USERPROFILE\Pictures" -Recurse | Move-Item -Destination "$OneDrive\Pictures" -Force -Verbose -ErrorAction SilentlyContinue
+    Remove-Item "$env:USERPROFILE\Pictures" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+
+}
+
+If (Test-Path "$env:USERPROFILE\Desktop") {
+    Get-ChildItem "$env:USERPROFILE\Desktop" -Recurse | Move-Item -Destination "$OneDrive\Desktop" -Force -Verbose -ErrorAction SilentlyContinue
+    Remove-Item "$env:USERPROFILE\Desktop" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 
 }
 
