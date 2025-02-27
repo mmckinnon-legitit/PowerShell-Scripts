@@ -119,19 +119,19 @@ If (Test-Path "$env:USERPROFILE\Documents\Videos") {
 
 If (Test-Path "$env:USERPROFILE\Documents") {
     Get-ChildItem "$env:USERPROFILE\Documents" -Recurse | Move-Item -Destination "$OneDrive\Documents" -Force -Verbose -ErrorAction SilentlyContinue
-    Remove-Item "$env:USERPROFILE\Documents" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+    #Remove-Item "$env:USERPROFILE\Documents" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 
 }
 
 If (Test-Path "$env:USERPROFILE\Pictures") {
     Get-ChildItem "$env:USERPROFILE\Pictures" -Recurse | Move-Item -Destination "$OneDrive\Pictures" -Force -Verbose -ErrorAction SilentlyContinue
-    Remove-Item "$env:USERPROFILE\Pictures" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+    #Remove-Item "$env:USERPROFILE\Pictures" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 
 }
 
 If (Test-Path "$env:USERPROFILE\Desktop") {
     Get-ChildItem "$env:USERPROFILE\Desktop" -Recurse | Move-Item -Destination "$OneDrive\Desktop" -Force -Verbose -ErrorAction SilentlyContinue
-    Remove-Item "$env:USERPROFILE\Desktop" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
+    #Remove-Item "$env:USERPROFILE\Desktop" -Recurse -Force -Verbose -ErrorAction SilentlyContinue
 
 }
 
